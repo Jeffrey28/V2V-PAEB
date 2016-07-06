@@ -140,3 +140,4 @@ temp_buf(index) = 0;%pedestrian acceleration
 
 message = temp_buf;
 %Set the pedestrians' information End.................................
+end

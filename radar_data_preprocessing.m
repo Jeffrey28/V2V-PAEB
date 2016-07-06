@@ -1,4 +1,4 @@
-function [radar_out,num_det_objs] = preprocessing(radar_in,vechicle_state,TISdet)
+function [radar_out,num_det_objs] = radar_data_preprocessing(radar_in,vechicle_state,TISdet)
 %#codegen
 
 coder.extrinsic('fprintf')

@@ -5,17 +5,6 @@ coder.extrinsic('fprintf')
 %m is number of rows, and n is number of comumns
 [m,n] = size(radar_data);
 
-fprintf('The demision of Radar Sensor data:  m = %d , n = %d \r\n',m,n);
-
-for i=1:m
-    for j=1:n
-        fprintf('%f ',radar_data(i,j));
-        if(j==10 || mod(i,10)==0)
-            fprintf('\r\n');
-        end
-    end
-end
-
 
 %Radar_Data_Rows_Per_Object = 16;
 
@@ -27,9 +16,6 @@ Num_Prarams_Per_Pedestrian = 16;
 %fprintf('The demision of Ped Info:  m = %d , n = %d \r\n',Max_Num_Detected_objects,Num_Prarams_Per_Pedestrian);
 
 ped_info = zeros(m,n);
-
-
-
 
 vehicle_x = vehicle_state(1);
 vehicle_y = vehicle_state(2);
@@ -46,7 +32,8 @@ vehicle_yaw = vehicle_state(12);
 
 
 for i=1:Max_Num_Detected_objects
-    beam_id = radar_data(Max_Num_Detected_objects*0 + i);
+  beam_id = radar_data(Max_Num_Detected_objects*0 + i);
+   %beam_id = radar_data(Max_Num_Detected_objects)
     range = radar_data(Max_Num_Detected_objects*1 + i);
     velocity = radar_data(Max_Num_Detected_objects*2 + i);
     velocity_x = radar_data(Max_Num_Detected_objects*3 + i);
@@ -62,11 +49,28 @@ for i=1:Max_Num_Detected_objects
     velocity_rot_x = radar_data(Max_Num_Detected_objects*13 + i);
     velocity_rot_y = radar_data(Max_Num_Detected_objects*14 + i);
     velocity_rot_z = radar_data(Max_Num_Detected_objects*15 + i);
+    ped_coordinate_angle = vehicle_heading + theta;
+    dx = range*sin(ped_coordinate_angle*pi/180);
+    dy = range*cos(ped_coordinate_angle*pi/180);
+    dz = range*sin(phi*pi/180);
     
+    ped_x = vehicle_x + dx + 2.59859099224801;
+    % ped_info(1,i) = ped_x;%(1)ped_x
+    
+    ped_y = vehicle_y + dy + 10.8900413460814;
+ % ped_info(2,i) = ped_y;%(2)ped_y
+    
+   ped_z = vehicle_z + dz - 0.550530907121998;
+     % ped_info(3,i) = ped_z;%(3)ped_z
+      
+      
     %fprintf('The object type = %d \r\n',target_type);
     
     if target_type == 4 %This is a pedestrian
         ped_info(Max_Num_Detected_objects*0 + i) = beam_id;
+      % ped_info(Max_Num_Detected_objects*1 + i) = ped_x;
+      % ped_info(Max_Num_Detected_objects*2 + i) = ped_y;
+      % ped_info(Max_Num_Detected_objects*3 + i) = ped_z;
         ped_info(Max_Num_Detected_objects*1 + i) = range;
         ped_info(Max_Num_Detected_objects*2 + i) = velocity;
         ped_info(Max_Num_Detected_objects*3 + i) = velocity_x;
@@ -90,7 +94,6 @@ for i=1:Max_Num_Detected_objects
 end
 
 %{
-
 for i=1:Max_Num_Detected_objects
     
     beam_id = radar_data(Max_Num_Detected_objects*0 + i);
@@ -148,5 +151,4 @@ for i=1:Max_Num_Detected_objects
     %Calculate the TTC coordinate of current pedestrian
     ped_info(9,i) = ttc;%(9)ped_ttc
 end
-
 %}

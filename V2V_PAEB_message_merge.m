@@ -1,4 +1,4 @@
-function ped_info  = PedestrianMerge(num_peds,ped_id,ped_type,ped_size,ped_color,ped_speed,ped_heading,ped_acc,ped_range,ped_theta,ped_dRotz,dx,dy,dz)
+function ped_info  = V2V_PAEB_message_merge(num_peds,ped_id,ped_type,ped_size,ped_color,ped_speed,ped_heading,ped_acc,ped_range,ped_theta,ped_dRotz,dx,dy,dz)
 %#codegen
 coder.extrinsic('fprintf')
 

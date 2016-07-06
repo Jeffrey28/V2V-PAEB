@@ -1,4 +1,4 @@
-function [PedestriansPAEB,PedestriansV2V,PedestrianMerged] = preprocessing(pedestrian_info_pcs,pedestrian_info_v2v,vehicle_state,TISdet)
+function [PedestriansPAEB,PedestriansV2V,PedestrianMerged] = pedestrian_information_merge(pedestrian_info_pcs,pedestrian_info_v2v,vehicle_state,TISdet)
 %#codegen
 
 coder.extrinsic('fprintf');
@@ -43,8 +43,9 @@ end
 %Merge the two sets of pedestrians together
 
 %Currently we do not merge them, just put them together
-PedestrianMerged = zeros((m1/TISdet)+m2,max(n1,n2));
+PedestrianMerged = zeros(ceil((m1/TISdet))+m2,max(n1,n2));
 
 PedestriansPAEB = pedestrian_info_pcs;
 
 PedestriansV2V = pedestrian_info_v2v;
+end

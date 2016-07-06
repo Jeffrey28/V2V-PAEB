@@ -1,4 +1,4 @@
-function [camera_out,roi_data] = CameraPreprocess(camera_data,vehicle_state,radar_data,num_objs,TISdet)
+function [camera_out,roi_data] = camera_data_preprocessing(camera_data,vehicle_state,radar_data,num_objs,TISdet)
 %#codegen
 
 coder.extrinsic('fprintf')
